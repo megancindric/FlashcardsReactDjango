@@ -6,3 +6,6 @@ class Card(models.Model):
     word = models.CharField(max_length=255)
     definition = models.CharField(max_length=255)
     collection = models.ForeignKey(CardCollection, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.word

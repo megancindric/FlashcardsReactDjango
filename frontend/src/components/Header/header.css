@@ -1,0 +1,15 @@
+div {
+    background-color: #f07167;
+    min-height: 8vh;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    color: white;
+  }
+  h2 {
+        margin-left: 2rem;
+
+  }
+  small{
+    margin-left: 1rem
+  }

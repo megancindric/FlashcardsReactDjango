@@ -1,0 +1,36 @@
+version: "3.1"
+services:
+  flashcards-database:
+    build: ./database
+    # TODO Replace <docker hub username> with your Docker Hub account username and uncomment the line
+    # image: megancindric/flashcards-database:1.0
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db-data:/var/lib/mysql
+  flashcards-backend:
+    build: ./backend
+    # TODO Replace <docker hub username> with your Docker Hub account username and uncomment the line
+    # image: megancindric/flashcards-backend:1.0
+    ports:
+      - 8000:8000
+    depends_on:
+      - "flashcards-database"
+    restart: always
+    command: >
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+  flashcards-frontend:
+    build: ./frontend
+    # TODO Replace <docker hub username> with your Docker Hub account username and uncomment the line
+    # image: megancindric/flashcards-frontend:1.0
+    ports:
+      - 3000:3000
+      - 80:80
+      - 443:443
+    depends_on:
+      - "flashcards-backend"
+volumes:
+  db-data:
